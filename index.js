@@ -2,6 +2,7 @@ const express = require("express");
 
 const { connection } = require("./configs/db");
 const { userRouter } = require("./routes/user.routes");
+const { authenticate } = require("./middlewares/authenticate.middleware");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
   res.send("Sandesh Jadhav");
 });
 app.use("/users", userRouter);
+app.use(authenticate);
 
 app.listen(process.env.port, async () => {
   try {
